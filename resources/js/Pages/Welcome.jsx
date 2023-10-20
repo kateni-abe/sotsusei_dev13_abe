@@ -1,4 +1,4 @@
-// 必要なモジュールをインポート
+// 必要なモジュールをインポートやっていた
 import { Link, Head } from "@inertiajs/react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
@@ -10,7 +10,7 @@ const BlackButton = styled(Button)({
     boxShadow: "none",
     textTransform: "none",
     borderRadius: 8,
-    fontSize: 20,
+    fontSize: 15,
     padding: "6px 30px",
     lineHeight: 1.5,
     backgroundColor: "black",
@@ -57,6 +57,7 @@ export default function Welcome({ auth }) {
                         fontWeight: "bold",
                         fontFamily: "Noto Sans JP, sans-serif",
                         paddingBottom: 10,
+                        fontSize: "28px",
                     }}
                     component="div"
                 >
@@ -64,7 +65,7 @@ export default function Welcome({ auth }) {
                 </Typography>
 
                 {/* ボタンエリア */}
-                <Stack direction="row" spacing={3}>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={3}>
                     <BlackButton variant="contained" href={route("login")}>
                         ログイン
                     </BlackButton>

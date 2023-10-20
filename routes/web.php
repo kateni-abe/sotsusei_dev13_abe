@@ -1,9 +1,10 @@
 <?php
 
-// コントローラーインポート
+// コントローラーインポートだよ
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDetailsController;
+use App\Http\Controllers\FollowController;
 
 // アプリケーション基本クラス
 use Illuminate\Foundation\Application;
@@ -66,6 +67,10 @@ Route::get('/user/{token}', function ($token) {
     $user = User::where('unique_token', $token)->firstOrFail();
     return Inertia::render('MakeFriends', ['user' => $user]);
 });
+
+
+Route::post('/follow/{user}', [FollowController::class, 'store'])->name('follow.store');
+Route::delete('/unfollow/{user}', [FollowController::class, 'destroy'])->name('follow.destroy');
 
 
 
