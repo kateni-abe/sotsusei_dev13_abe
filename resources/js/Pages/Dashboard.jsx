@@ -7,6 +7,44 @@ import { Head } from "@inertiajs/react";
 // qrcode.react モジュールをインポート
 import QRCode from "qrcode.react";
 
+import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+
+//mui ボタンの設定
+const BlackButton = styled(Button)({
+    boxShadow: "none",
+    textTransform: "none",
+    borderRadius: 8,
+    fontSize: 15,
+    padding: "6px 30px",
+    lineHeight: 1.5,
+    backgroundColor: "black",
+    fontFamily: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+        backgroundColor: "#555555",
+        boxShadow: "none",
+    },
+    "&:active": {
+        boxShadow: "none",
+        backgroundColor: "#333333",
+        borderColor: "#005cbf",
+    },
+    "&:focus": {
+        boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+    },
+});
+
 // Dashboardコンポーネントを定義。authオブジェクトとuserDetailsオブジェクトをプロップとして受け取りますよ。
 export default function dashboard({ auth, userDetails = {} }) {
     // console.log(userDetails);
@@ -18,6 +56,11 @@ export default function dashboard({ auth, userDetails = {} }) {
     const hasPublicDetails = publicDetailsKeys.length > 0;
 
     const userURL = `${window.location.origin}/user/${auth.user.unique_token}`;
+
+    const copyToClipboard = (url) => {
+        navigator.clipboard.writeText(url);
+        alert("マイカードリンクがクリップボードにコピーされました!");
+    };
 
     return (
         // AuthenticatedLayoutコンポーネントを使用して、
@@ -121,14 +164,20 @@ export default function dashboard({ auth, userDetails = {} }) {
                                 </p>
                             )}
                             <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                                {/* ユーザーがログインしていることを通知するメッセージ */}
-                                <div className="p-6 text-gray-900">
-                                    {/* ... 他のコード ... */}
-                                </div>
-
                                 {/* QRコードエリア */}
-                                <div className="p-6 text-gray-900">
+                                <div className="p-6 text-gray-900 flex flex-col items-center">
                                     <QRCode value={userURL} size={128} />
+                                    {/* QRコードに含まれるリンク情報の表示エリア */}
+                                    <div className="mt-4 text-center">
+                                        <BlackButton
+                                            variant="contained"
+                                            onClick={() =>
+                                                copyToClipboard(userURL)
+                                            }
+                                        >
+                                            マイカードリンクをコピー
+                                        </BlackButton>
+                                    </div>
                                 </div>
                             </div>
                         </div>
