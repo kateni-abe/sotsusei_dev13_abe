@@ -1,4 +1,4 @@
-// 必要なモジュールをインポート
+// 必要なモジュールをインポートやっていた
 import { Link, Head } from "@inertiajs/react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
